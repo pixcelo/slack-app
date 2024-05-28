@@ -1,1 +1,1 @@
-# tek
+# static blog

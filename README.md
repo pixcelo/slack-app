@@ -1,1 +1,1 @@
-# static blog
+# slack app

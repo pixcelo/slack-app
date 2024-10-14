@@ -11,3 +11,11 @@ SLACK_SIGNING_SECRET=""
 SLACK_BOT_TOKEN=""
 SLACK_APP_TOKEN=""
 ```
+
+## サービス化
+Windowsならwinser、Linuxならpm2
+- winser
+- pm2
+
+## Reference
+- [WinSer](https://github.com/jfromaniello/winser)

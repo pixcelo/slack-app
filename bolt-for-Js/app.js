@@ -22,15 +22,69 @@ const app = new App({
 // });
 
 // トリガー（キーワードを含む場合、そのメッセージを転送する）
-const triggerWords = new RegExp('hello|hi|hey|how are you|good morning', 'i');
+// const triggerWords = 'opened';
+// const triggerWords = new RegExp('aaa|bbb|ccc', 'i');
 
-app.message(triggerWords, async ({ message, client }) => {
-  // client.chat.postMessageを使用して特定のチャンネルにメッセージを送信
-  await client.chat.postMessage({
-    channel: '', // 送信先のチャンネルID
-    text: message // ここでreplaceしたい
-  });
+// const replaceMap = {
+//   'aaa': '',
+//   'bbb': '',
+// };
+
+// function replaceText(text) {
+//   return text.replace(/\w+/g, word => replaceMap[word] || word);
+// }
+
+// SlackのGitHub Appのメッセージを読み取って、同じチームのプルリクならチームチャンネルに転送する
+app.event('message', async ({ event, client }) => {  
+  if (event.bot_id == '') return;
+
+  try {
+    const text = event.attachments[0]?.text || '';
+    const title = event.attachments[0]?.title || '';
+
+    const reviewerText = event.attachments[0]?.fields[0]?.value || '';
+    let reviewer = "";
+
+    // レビュワーのSlackIDを指定
+    if (reviewerText.includes('')) {
+      reviewer += '<@> ';
+    }
+    if (reviewerText.includes('')) {
+      reviewer += '<@> ';
+    }
+    if (reviewerText.includes('')) {
+      reviewer += '<@> ';
+    }
+
+    // メッセージの作成
+    const sendMessage = `${(reviewer)} \n ${title} \n ${text}`;
+
+    // レビュワーに同じチームのメンバーがいるかどうか
+    if (reviewerText.includes('') || reviewerText.includes('')) {
+      await client.chat.postMessage({
+        channel: '', // 送信先のチャンネルID
+        // channel: event.channel, // 同じチャンネルに送信
+        text: sendMessage,
+        
+      });
+    } else {
+      console.log('レビュワーにメンバーがいませんでした。');
+    }
+  } catch (error) {
+    console.error(error);
+  }  
 });
+
+// app.message('opened', async ({ message, client, logger }) => {  
+//   try {
+//     await client.chat.postMessage({
+//       channel: '', //message.channel, // 送信先のチャンネルID
+//       text: message.text // ここでメンションの名前を Replaceしたい
+//     });
+//   } catch (error) {
+//     logger.error(error);
+//   }  
+// });
 
 (async () => {
   // Start the app

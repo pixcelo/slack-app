@@ -13,8 +13,6 @@ const app = new App({
   port: process.env.PORT || 3000
 });
 
-/* Add functionality here */
-
 // 返事をしてくれる例
 // app.message('hello', async ({ message, say }) => {
 //   // say() sends a message to the channel where the event was triggered

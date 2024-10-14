@@ -3,7 +3,6 @@
 require('dotenv').config();
 
 const { App } = require('@slack/bolt');
-// console.log(process.env);
 
 const app = new App({
   signingSecret: process.env.SLACK_SIGNING_SECRET,
